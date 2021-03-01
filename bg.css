@@ -167,6 +167,14 @@ a.chosen {
     box-shadow: var(--ct-page-box-shadow);
 }
 
+/* < > buttons */
+
+.cp__header > a.navigation svg {
+    color: var(--ct-desktop-nav-buttons-color);
+}
+
+/* searchbar */
+
 #search-field {
     background: var(--ct-search-field-background) !important;
     color: var(--ct-search-field-text-color);
@@ -1317,16 +1325,18 @@ html[data-theme="light"] {
     --ls-primary-text-color: var(--ct-page-font-color);
     
     --ct-background: linear-gradient(105deg, rgb(43 23 1 / 60%) 0%,rgb(45 19 4 / 50%) 100%);
+    --ls-primary-background-color: rgb(60 43 24);
     --ct-background-picture: url(https://i.imgur.com/wgNO5YL.jpg);
 /*     --ct-background-picture: url(https://i.imgur.com/gDZzZbO.jpg); */
-    --ls-primary-background-color: rgb(60 43 24);
+    
+    --ct-desktop-nav-buttons-color: #887160;
     
     --ls-scrollbar-foreground-color: #534333;
-    --ls-scrollbar-background-color: transparent;
+    --ls-scrollbar-background-color: var(--ls-primary-background-color);
     
     --ct-logo-color: #b78255;
-    --ct-repo-name-color: #887160;
-    --ct-top-right-3dots-icon-color: var(--ct-repo-name-color);
+    --ct-repo-name-color: var(--ct-desktop-nav-buttons-color);
+    --ct-top-right-3dots-icon-color: var(--ct-desktop-nav-buttons-color);
     
     --ct-search-field-background: rgba(206, 191, 180, .7);
     --ct-search-field-background-focus: rgba(206, 191, 180, .7);
@@ -1601,12 +1611,14 @@ html[data-theme="dark"] {
     --ls-primary-background-color: #050408;
     --ct-background-picture: url(https://i.imgur.com/JZNM9Zb.jpeg);
     
+    --ct-desktop-nav-buttons-color: #3a3344;
+    
     --ls-scrollbar-foreground-color: #4b2734;
-    --ls-scrollbar-background-color: transparent;
+    --ls-scrollbar-background-color: var(--ls-primary-background-color);
     
     --ct-logo-color: #665b86;
-    --ct-repo-name-color: #3a3344;
-    --ct-top-right-3dots-icon-color: var(--ct-repo-name-color);
+    --ct-repo-name-color: var(--ct-desktop-nav-buttons-color);
+    --ct-top-right-3dots-icon-color: var(--ct-desktop-nav-buttons-color);
     
     --ct-search-field-background: rgba(27, 20, 31, .8);
     --ct-search-field-background-focus: var(--ct-search-field-background);
