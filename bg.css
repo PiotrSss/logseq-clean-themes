@@ -167,6 +167,10 @@ a.chosen {
     box-shadow: var(--ct-page-box-shadow);
 }
 
+hr {
+    border-top: var(--ct-hr-border-top);
+}
+
 /* < > buttons */
 
 .cp__header > a.navigation {
@@ -1362,6 +1366,8 @@ html[data-theme="light"] {
     
     --ct-page-properties-background: rgb(240 228 218 / 50%);
     
+    --ct-hr-border-top: 1px dashed var(--ct-title-3dots-icon-color);
+    
     --ct-guideline-color: #cab9a4;
     --ct-guideline-size: 1px;
     --ct-guideline-style: dashed;
@@ -1643,6 +1649,8 @@ html[data-theme="dark"] {
     --ct-page-references-border: 1px solid var(--ct-page-references-background);
     
     --ct-page-properties-background: rgba(22 20 31 / 40%);
+    
+    --ct-hr-border-top: 1px dashed var(--ct-title-3dots-icon-color);
     
     --ct-guideline-color: rgba(91, 74, 66, .7);
     --ct-guideline-size: 1px;
