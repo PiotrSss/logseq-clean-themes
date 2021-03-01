@@ -77,6 +77,19 @@ html, body {
     font-size: var(--ct-text-size);
 }
 
+html[data-theme="light"] {
+    background: var(--ls-primary-background-color);
+}
+
+html[data-theme="dark"] {
+    background: var(--ls-primary-background-color);
+}
+
+.theme-inner {
+    background: var(--ct-background-picture, transparent) var(--ct-background-picture-position, center center) fixed;
+    background-size: cover;
+}
+
 #app-container {
     background: var(--ct-background);
 }
@@ -185,6 +198,11 @@ h1.title {
     font-style: var(--ct-page-title-font-style);
     color: var(--ct-page-title-color);
     line-height: var(--ct-page-title-line-height);
+    margin-top: 30px;
+}
+
+a.title h1.title {
+    margin-top: 0;
 }
 
 /* ... icon */
@@ -941,9 +959,6 @@ textarea {
     color: var(--ct-calendar-day-color-hover);
 }
 
-
-/* Calendar - pages from other months */
-
 .logseq-tools-calendar .outofmonth {
     opacity: .3;
 }
@@ -958,9 +973,172 @@ textarea {
     opacity: 1;
 }
 
-/*==================================================
+
+/* tables */
+
+tr {
+    border-bottom: none;
+}
+
+.table-wrapper {
+    max-width: 100%;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+}
+
+.table-wrapper table {
+    margin: 0;
+}
+
+.table-wrapper tr,
+.cp__sidebar-help-docs table tr {
+    border-bottom: none;
+}
+
+.table-wrapper thead tr,
+.cp__sidebar-help-docs table thead tr,
+.flex-1 table thead tr{
+    background: var(--ct-table-head-background, none) !important;   
+}
+
+.table-wrapper thead th,
+.cp__sidebar-help-docs table thead th,
+.flex-1 table thead th {
+    color: var(--ct-table-head-color, #fff);
+}
+
+.table-wrapper tbody tr:nth-child(odd),
+.cp__sidebar-help-docs table tbody tr:nth-child(odd),
+.flex-1 table tbody tr:nth-child(odd) {
+    background: var(--ct-table-row-odd-bg, rgb(210 194 173 / 50%));
+    color: var(--ct-table-row-odd-color);
+}
+
+.table-wrapper tbody tr:nth-child(even),
+.cp__sidebar-help-docs table tbody tr:nth-child(even),
+.flex-1 table tbody tr:nth-child(even){
+    background: var(--ct-table-row-even-bg, rgb(185 172 157 / 70%));
+    color: var(--ct-table-row-even-color);
+}
+
+.table-wrapper thead th,
+.cp__sidebar-help-docs table thead th,
+.flex-1 table thead th{
+    border-bottom: var(--ct-table-head-border-bottom, 2px solid #a59585);
+}
+
+.table-wrapper tbody td,
+.cp__sidebar-help-docs table tbody td,
+.flex-1 table tbody td {
+    border-bottom: var(--ct-table-row-border-bottom, none);
+}
+
+.table-wrapper tr:last-child td,
+.cp__sidebar-help-docs table tr:last-child td,
+.flex-1 table tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Settings */
+
+.ui__modal-overlay div {
+    background: var(--ct-settings-overlay-background);
+}
+
+.ui__modal-panel,
+.settings-modal {
+    background: var(--ct-settings-background);
+}
+
+.cp__settings-main>h1.title {
+    margin-top: 0;
+}
+
+.ui__toggle .wrapper.bg-indigo-600 {
+    background: var(--ct-settings-switcher-background);
+}
+
+.settings-modal .form-select {
+    background: var(--ct-settings-select-background);
+    color: var(--ct-settings-select-color);
+    border: none;
+}
+
+.settings-modal .form-input {
+    border: var(--ct-settings-input-border);
+    color: var(--ct-settings-input-color);
+    background: none;
+}
+
+.settings-modal hr {
+    border-color: var(--ct-settings-hr-color);
+}
+
+
+
+/* Calendar */
+
+#contents .logseq-tools-calendar .page-ref:before,
+#contents .logseq-tools-calendar .page-ref:after {
+    display: none;
+}
+
+
+.logseq-tools-calendar h2 {
+    margin-bottom: 5px;
+    text-align: center;
+}
+.logseq-tools-calendar table {
+    margin-top: 5px;
+}
+
+.cp__sidebar-main-content .logseq-tools-multiple-calendars {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 15px;
+}
+
+.cp__sidebar-main-content .logseq-tools-multiple-calendars .logseq-tools-calendar {
+    flex: 0 50%;
+    box-sizing: border-box;
+    padding: 0 15px;
+}
+
+.logseq-tools-calendar tr {
+    background: none !important;
+}
+
+.logseq-tools-calendar td {
+    font-weight: 600;
+}
+
+.logseq-tools-calendar th,
+.logseq-tools-calendar td,
+.logseq-tools-calendar tr {
+    border: none !important;
+}
+
+.logseq-tools-calendar th,
+.logseq-tools-calendar td {
+    text-align: center;
+}
+
+.logseq-tools-calendar .page-ref {
+    color: var(--ct-calendar-day-color);
+}
+
+.logseq-tools-calendar .page-ref:hover {
+    color: var(--ct-calendar-day-color-hover);
+}
+
+.logseq-tools-calendar .outofmonth {
+    opacity: .3;
+}
+
+/*=============================================================================================================================
 ==== highlight current path by cannnibalox v0.2 https://discuss.logseq.com/t/css-highlights-current-path-bullets-color/371 ====
-==================================================*/
+=============================================================================================================================*/
 
 .ls-block .bullet {
     background-color: var(--ct-page-reference-color);
@@ -987,8 +1165,8 @@ textarea {
     padding: 0;
 }
 .extensions__code-lang {
-    background: #184439;
-    color: #F8F8F2;
+    background: var(--ct-code-block-lang-background, #184439);
+    color: var(--ct-code-block-lang-color, #F8F8F2);
     padding: 5px 8px;
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -998,13 +1176,13 @@ textarea {
 	line-height: 1.5em;
 	letter-spacing: 0.3px;
 	word-spacing: 1px;
-	background: #0e352b;
-	color: #F8F8F2;
+	background: var(--ct-code-block-background, #0e352b);
+	color: var(--ct-code-block-color, #F8F8F2);
 }
 .cm-s-default .CodeMirror-gutters {
 	box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
-	background-color: #0a2820;
+	background-color: var(--ct-code-block-line-numbers-background, #0a2820);
 	padding-right: 0px;
 	z-index: 3;
 	border: none;
@@ -1022,7 +1200,7 @@ textarea {
     padding-left: 3px;
 }
 .cm-s-default div.CodeMirror-cursor {
-	border-left: 3px solid #F8F8F2;
+	border-left: 2px solid #F8F8F2;
 }
 .cm-s-default .CodeMirror-activeline-background {
 	background: #3D2E2E77;
@@ -1066,36 +1244,70 @@ textarea {
 }
 
 
+/***************************************************************
+****************************************************************
+****************************************************************
+**************************** MOBILE ****************************
+****************************************************************
+****************************************************************
+***************************************************************/
 
-#journals {
-    margin-bottom: 0;
+.is-mobile #head.cp__header {
+    background: var(--ct-mobile-head-background);
+    box-shadow: var(--ct-mobile-head-box-shadow, none);
 }
 
-.cp__sidebar-main-content {
-    margin-bottom: 600px;
+.is-mobile .cp__header-left-menu {
+    border: none;
+    color: var(--ct-mobile-head-menu-icon-color);
 }
 
-#journals .journal-item:first-child {
-    min-height: 0;
+.is-mobile #search-field,
+.is-mobile #search-wrapper > div:first-child {
+    opacity: 1;
 }
 
-#journals .journal-item {
-    margin-bottom: 0;
+.is-mobile #left-bar,
+#left-bar>.head-wrap {
+    background: var(--ct-mobile-left-sidebar-background);
 }
 
+.is-mobile .head-wrap a {
+    opacity: 1;
+    color: var(--ct-mobile-sidebar-repo-name-color);
+}
+.is-mobile #left-bar .close-panel-btn {
+    color: var(--ct-mobile-close-sidebar-button-color);
+}
 
+.is-mobile #left-bar nav>a,
+.is-mobile #left-bar nav>a svg {
+    color: var(--ct-mobile-menu-color);
+}
+
+.is-mobile .left-sidebar-inner > .pl-4.pr-4 {
+    background: var(--ct-mobile-menu-separator-background) !important;
+}
+
+.is-mobile #mobile-editor-toolbar {
+    background: var(--ct-mobile-editor-toolbar-background);
+}
+
+.is-mobile #mobile-editor-toolbar svg {
+    color: var(--ct-mobile-editor-toolbar-color);
+}
 
 
 /***************************************************************
 ****************************************************************
 ****************************************************************
-*************************** Wanderer ***************************
+****************************** L5 ******************************
 ****************************************************************
 ****************************************************************
 ***************************************************************/
 
 .white-theme,
-html[data-theme=light] {
+html[data-theme="light"] {
     
     --ls-search-icon-color: var(--ct-page-reference-color);
     --ls-link-text-color: var(--ct-page-reference-color);
@@ -1105,6 +1317,8 @@ html[data-theme=light] {
     --ls-primary-text-color: var(--ct-page-font-color);
     
     --ct-background: linear-gradient(105deg, rgb(43 23 1 / 60%) 0%,rgb(45 19 4 / 50%) 100%);
+    --ct-background-picture: url(https://i.imgur.com/wgNO5YL.jpg);
+/*     --ct-background-picture: url(https://i.imgur.com/gDZzZbO.jpg); */
     --ls-primary-background-color: rgb(60 43 24);
     
     --ls-scrollbar-foreground-color: #534333;
@@ -1277,6 +1491,39 @@ html[data-theme=light] {
     
     --ct-slides-font-color: var(--ct-sidebar-font-color);
     --ct-slides-background: var(--ct-sidebar-item-background);
+    
+    --ct-code-block-background: #164d57;
+    --ct-code-block-color: #F8F8F2;
+    --ct-code-block-line-numbers-background: #0f343e;
+    --ct-code-block-lang-color: #F8F8F2;
+    --ct-code-block-lang-background: #184044;
+    
+    --ct-table-head-bg: none;
+    --ct-table-head-color: var(--ct-page-font-color);
+    --ct-table-row-odd-bg: rgb(240 228 218 / 50%);
+    --ct-table-row-odd-color: var(--ct-page-font-color);
+    --ct-table-row-even-bg: rgb(247 243 239 / 50%);
+    --ct-table-row-even-color: var(--ct-page-font-color);
+    --ct-table-head-border-bottom: 2px solid #d6c8b8;
+    
+    --ct-settings-overlay-background: var(--ct-page-properties-background);
+    --ct-settings-background: linear-gradient(135deg, rgba(242, 230, 210, 1) 0%,  rgba(247, 225, 213, 1) 100%);
+    --ct-settings-switcher-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-color: rgb(255 255 255 / 70%);
+    --ct-settings-input-border: 1px solid var(--ls-scrollbar-foreground-color);
+    --ct-settings-input-color: var(--ct-page-font-color);
+    --ct-settings-hr-color: var(--ct-journal-border-color);
+    
+    --ct-mobile-head-background: var(--ct-page-background);
+    --ct-mobile-head-menu-icon-color: var(--ct-page-font-color);
+    --ct-mobile-left-sidebar-background: rgb(216 210 199);
+    --ct-mobile-sidebar-repo-name-color: var(--ct-page-reference-color);
+    --ct-mobile-close-sidebar-button-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-separator-background: var(--ct-settings-hr-color);
+    --ct-mobile-editor-toolbar-background: rgb(242, 230, 210);
+    --ct-mobile-editor-toolbar-color: var(--ct-page-font-color);
 }
 
 
@@ -1285,15 +1532,8 @@ html[data-theme=light] {
 **************************** MISC ******************************
 ***************************************************************/
 
-.white-theme .theme-inner {
-    background: url(https://i.imgur.com/wgNO5YL.jpg) center center fixed;
-/*     background: url(https://i.imgur.com/gDZzZbO.jpg) center center fixed; */
-    background-size: cover;
-}
 
-html[data-theme="light"] {
-    background: rgb(49, 22, 15);
-}
+
 
 
 .white-theme #contents .logseq-tools-calendar {
@@ -1321,32 +1561,28 @@ html[data-theme="light"] {
     text-shadow: 1px 1px 6px #f7eee3;
 }
 
-/***************************************************************
-****************************************************************
-****************************************************************
-************************** CODE BLOCKS *************************
-****************************************************************
-****************************************************************
-***************************************************************/
 
-.white-theme .extensions__code-lang {
-    background: #184044;
-    color: #F8F8F2;
-}
-.white-theme .cm-s-default {
-	background: #164d57;
-	color: #F8F8F2;
-}
-.white-theme .cm-s-default .CodeMirror-gutters {
-	background-color: #0f343e;
-}
 
+/* daily note as card */
+
+.white-theme #journals {
+    margin-bottom: 0;
+}
+.white-theme .cp__sidebar-main-content {
+    margin-bottom: 600px;
+}
+.white-theme #journals .journal-item:first-child {
+    min-height: 0;
+}
+.white-theme #journals .journal-item {
+    margin-bottom: 0;
+}
 
 
 /***************************************************************
 ****************************************************************
 ****************************************************************
-************************ Night In Nature ***********************
+****************************** D5 ******************************
 ****************************************************************
 ****************************************************************
 ***************************************************************/
@@ -1363,6 +1599,7 @@ html[data-theme="dark"] {
     
     --ct-background: linear-gradient(105deg, rgb(27 21 30 / 92%) 0%, rgb(0 0 0 / 63%) 100%);
     --ls-primary-background-color: #050408;
+    --ct-background-picture: url(https://i.imgur.com/JZNM9Zb.jpeg);
     
     --ls-scrollbar-foreground-color: #4b2734;
     --ls-scrollbar-background-color: transparent;
@@ -1534,6 +1771,39 @@ html[data-theme="dark"] {
     
     --ct-slides-font-color: var(--ct-sidebar-font-color);
     --ct-slides-background: var(--ct-sidebar-item-background);
+    
+    --ct-code-block-background: #17131f;
+    --ct-code-block-color: #F8F8F2;
+    --ct-code-block-line-numbers-background: #0f0d15;
+    --ct-code-block-lang-color: #d4d4c3;
+    --ct-code-block-lang-background: #0f0d15;
+    
+    --ct-table-head-bg: none;
+    --ct-table-head-color: var(--ct-page-font-color);
+    --ct-table-row-odd-bg: rgba(22 20 31 / 40%);
+    --ct-table-row-odd-color: var(--ct-page-font-color);
+    --ct-table-row-even-bg: rgb(15 13 21 / 40%);
+    --ct-table-row-even-color: var(--ct-page-font-color);
+    --ct-table-head-border-bottom: 2px solid #331c2b;
+    
+    --ct-settings-overlay-background: var(--ct-page-properties-background);
+    --ct-settings-background: linear-gradient(105deg, rgb(33 29 40) 0%,rgb(33 29 43) 100%);
+    --ct-settings-switcher-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-color: rgb(255 255 255 / 70%);
+    --ct-settings-input-border: 1px solid var(--ls-scrollbar-foreground-color);
+    --ct-settings-input-color: rgb(255 255 255 / 70%);
+    --ct-settings-hr-color: var(--ct-journal-border-color);
+    
+    --ct-mobile-head-background: var(--ct-page-background);
+    --ct-mobile-head-menu-icon-color: var(--ct-page-font-color);
+    --ct-mobile-left-sidebar-background: #221e2f;
+    --ct-mobile-sidebar-repo-name-color: var(--ct-page-reference-color);
+    --ct-mobile-close-sidebar-button-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-separator-background: var(--ct-settings-hr-color);
+    --ct-mobile-editor-toolbar-background: rgb(33 29 40);
+    --ct-mobile-editor-toolbar-color: var(--ct-page-font-color);
 }
 
 
@@ -1541,15 +1811,6 @@ html[data-theme="dark"] {
 /***************************************************************
 **************************** MISC ******************************
 ***************************************************************/
-
-.dark-theme .theme-inner {
-    background: url(https://i.imgur.com/JZNM9Zb.jpeg) center center fixed;    
-    background-size: cover;
-}
-
-html[data-theme="dark"] {
-    background: #050408;
-}
 
 
 .dark-theme #contents .logseq-tools-calendar {
@@ -1572,23 +1833,17 @@ html[data-theme="dark"] {
 }
 
 
-/***************************************************************
-****************************************************************
-****************************************************************
-************************** CODE BLOCKS *************************
-****************************************************************
-****************************************************************
-***************************************************************/
+/* daily note as card */
 
-.dark-theme .extensions__code-lang {
-    background: #0f0d15;
-    color: #d4d4c3;
+.dark-theme #journals {
+    margin-bottom: 0;
 }
-.dark-theme .cm-s-default {
-	background: #17131f;
-	color: #F8F8F2;
+.dark-theme .cp__sidebar-main-content {
+    margin-bottom: 600px;
 }
-.dark-theme .cm-s-default .CodeMirror-gutters {
-	background-color: #0f0d15;
+.dark-theme #journals .journal-item:first-child {
+    min-height: 0;
 }
-
+.dark-theme #journals .journal-item {
+    margin-bottom: 0;
+}
