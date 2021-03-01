@@ -169,6 +169,9 @@ a.chosen {
 
 /* < > buttons */
 
+.cp__header > a.navigation {
+    opacity: .9;
+}
 .cp__header > a.navigation svg {
     color: var(--ct-desktop-nav-buttons-color);
 }
