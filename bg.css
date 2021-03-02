@@ -919,66 +919,6 @@ textarea {
 }
 
 
-/* Calendar */
-
-#contents .logseq-tools-calendar .page-ref:before,
-#contents .logseq-tools-calendar .page-ref:after {
-    display: none;
-}
-
-
-.logseq-tools-calendar h2 {
-    margin-bottom: 5px;
-    text-align: center;
-}
-.logseq-tools-calendar table {
-    margin-top: 5px;
-}
-
-.cp__sidebar-main-content .logseq-tools-multiple-calendars {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 15px;
-}
-
-.cp__sidebar-main-content .logseq-tools-multiple-calendars .logseq-tools-calendar {
-    flex: 0 50%;
-    box-sizing: border-box;
-    padding: 0 15px;
-}
-
-.logseq-tools-calendar tr {
-    background: none !important;
-}
-
-.logseq-tools-calendar td {
-    font-weight: 600;
-}
-
-.logseq-tools-calendar th,
-.logseq-tools-calendar td,
-.logseq-tools-calendar tr {
-    border: none;
-}
-
-.logseq-tools-calendar th,
-.logseq-tools-calendar td {
-    text-align: center;
-}
-
-.logseq-tools-calendar .page-ref {
-    color: var(--ct-calendar-day-color);
-}
-
-.logseq-tools-calendar .page-ref:hover {
-    color: var(--ct-calendar-day-color-hover);
-}
-
-.logseq-tools-calendar .outofmonth {
-    opacity: .3;
-}
-
-
 /* hide bullet for heading */
 
 [style="height: 24px; margin-top: 22px; float: left;"] {
@@ -1091,7 +1031,6 @@ tr {
 }
 
 
-
 /* Calendar */
 
 #contents .logseq-tools-calendar .page-ref:before,
@@ -1099,25 +1038,45 @@ tr {
     display: none;
 }
 
+.logseq-tools-calendar {
+    background: var(--ct-calendar-background);
+    padding: 0px 0px 1px 0px;
+    border-radius: 20px;
+    border-top-left-radius: 5px;
+    margin-bottom: 15px;
+    
+}
+
+#contents .logseq-tools-calendar {
+    margin-left: -21px;
+}
 
 .logseq-tools-calendar h2 {
-    margin-bottom: 5px;
-    text-align: center;
+    background: var(--ct-calendar-header-background);
+    display: inline-block;
+    margin: 3px 0 0 3px;
+    padding: 2px 13px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 20px;
 }
+
 .logseq-tools-calendar table {
-    margin-top: 5px;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 .cp__sidebar-main-content .logseq-tools-multiple-calendars {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 15px;
+    padding: 0;
+    justify-content: space-between;
 }
 
 .cp__sidebar-main-content .logseq-tools-multiple-calendars .logseq-tools-calendar {
-    flex: 0 50%;
+    flex: 0 49%;
     box-sizing: border-box;
-    padding: 0 15px;
+    padding: 0;
 }
 
 .logseq-tools-calendar tr {
@@ -1150,6 +1109,9 @@ tr {
 .logseq-tools-calendar .outofmonth {
     opacity: .3;
 }
+
+
+
 
 /*=============================================================================================================================
 ==== highlight current path by cannnibalox v0.2 https://discuss.logseq.com/t/css-highlights-current-path-bullets-color/371 ====
@@ -1313,6 +1275,7 @@ tr {
 }
 
 
+
 /***************************************************************
 ****************************************************************
 ****************************************************************
@@ -1469,6 +1432,9 @@ html[data-theme="light"] {
     --ct-query-result-page-title: var(--ct-page-reference-color);
     --ct-query-result-page-title-hover: var(--ct-page-reference-color-hover);
     
+    
+    --ct-calendar-background: var(--ct-page-properties-background);
+    --ct-calendar-header-background: #e0cfc1;
     --ct-calendar-day-color: var(--ct-page-reference-color);
     --ct-calendar-day-color-hover: var(--ct-page-reference-color-hover);
     
@@ -1551,36 +1517,11 @@ html[data-theme="light"] {
 **************************** MISC ******************************
 ***************************************************************/
 
-
-
-
-
-.white-theme #contents .logseq-tools-calendar {
-    background: var(--ct-page-properties-background);
-    padding: 0px 0px 1px 0px;
-    border-radius: 20px;
-    border-top-left-radius: 5px;
-    margin-bottom: 15px;
-    margin-left: -21px;
-}
-
-.white-theme #contents .logseq-tools-calendar h2 {
-    background: #e0cfc1;
-    display: inline-block;
-    margin: 3px 0 0 3px;
-    padding: 2px 13px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 20px;
-}
-
 .white-theme h1.title,
 .white-theme .sidebar-item .ml-1 a,
 .white-theme h2 {
     text-shadow: 1px 1px 6px #f7eee3;
 }
-
-
 
 /* daily note as card */
 
@@ -1596,6 +1537,7 @@ html[data-theme="light"] {
 .white-theme #journals .journal-item {
     margin-bottom: 0;
 }
+
 
 
 /***************************************************************
@@ -1752,10 +1694,12 @@ html[data-theme="dark"] {
     --ct-query-header-color: #fff;
     --ct-query-result-page-title: var(--ct-page-reference-color);
     --ct-query-result-page-title-hover: var(--ct-page-reference-color-hover);
-    
+
+    --ct-calendar-background: var(--ct-page-properties-background);
+    --ct-calendar-header-background: #15121d;
     --ct-calendar-day-color: var(--ct-page-reference-color);
     --ct-calendar-day-color-hover: var(--ct-page-reference-color-hover);
-    
+
     
     --ct-sidebar-resizer-background: none;
     --ct-sidebar-resizer-background-hover: rgba(62, 46, 70, .7);
@@ -1834,26 +1778,6 @@ html[data-theme="dark"] {
 /***************************************************************
 **************************** MISC ******************************
 ***************************************************************/
-
-
-.dark-theme #contents .logseq-tools-calendar {
-    background: var(--ct-page-properties-background);
-    padding: 0px 0px 1px 0px;
-    border-radius: 20px;
-    border-top-left-radius: 5px;
-    margin-bottom: 15px;
-    margin-left: -21px;
-}
-
-.dark-theme #contents .logseq-tools-calendar h2 {
-    background: #15121d;
-    display: inline-block;
-    margin: 3px 0 0 3px;
-    padding: 2px 13px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 20px;
-}
 
 
 /* daily note as card */
