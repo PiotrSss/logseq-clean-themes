@@ -214,10 +214,12 @@ h1.title {
     color: var(--ct-page-title-color);
     line-height: var(--ct-page-title-line-height);
     margin-top: 30px;
+    text-shadow: var(--ct-page-title-text-shadow, none);
 }
 
 a.title h1.title {
     margin-top: 0;
+    text-shadow: var(--ct-page-title-text-shadow, none);
 }
 
 /* ... icon */
@@ -255,6 +257,7 @@ a.bg-base-2.px-1.ml-1.mr-3:hover {
     font-weight: var(--ct-heading-font-weight);
     font-style: var(--ct-heading-font-style);
     color: var(--ct-heading-color);
+    text-shadow: var(--ct-heading-text-shadow, none);
 }
 
 /* text */
@@ -789,6 +792,7 @@ b, strong {
 
 .sidebar-item .ml-1 a {
     color: var(--ct-sidebar-item-title-color);
+    text-shadow: var(--ct-sidebar-item-title-text-shadow, none);
 }
 
 /* title when only part of page is open in sidebar */
@@ -1276,10 +1280,12 @@ tr {
 
 
 
+
+
 /***************************************************************
 ****************************************************************
 ****************************************************************
-****************************** L5 ******************************
+**************************** Light5 ****************************
 ****************************************************************
 ****************************************************************
 ***************************************************************/
@@ -1317,7 +1323,9 @@ html[data-theme="light"] {
     
     --ct-page-font-color: #3e231e;
     --ct-page-title-color: #4e2812;
+    --ct-page-title-text-shadow: 1px 1px 6px #f7eee3;
     --ct-heading-color: var(--ct-page-title-color);
+    --ct-heading-text-shadow: var(--ct-page-title-text-shadow);
     
     --ct-title-3dots-icon-color: #977d6a;
     
@@ -1449,6 +1457,7 @@ html[data-theme="light"] {
     --ct-sidebar-item-background: var(--ct-page-background);
     --ct-sidebar-item-box-shadow: var(--ct-page-box-shadow);
     --ct-sidebar-item-title-color: var(--ct-page-title-color);
+    --ct-sidebar-item-title-text-shadow: var(--ct-page-title-text-shadow);
     --ct-sidebar-item-close-button-color: #82695a;
     --ct-sidebar-page-references-background: var(--ct-page-properties-background);
     --ct-sidebar-page-properties-background: var(--ct-page-properties-background);
@@ -1517,12 +1526,6 @@ html[data-theme="light"] {
 **************************** MISC ******************************
 ***************************************************************/
 
-.white-theme h1.title,
-.white-theme .sidebar-item .ml-1 a,
-.white-theme h2 {
-    text-shadow: 1px 1px 6px #f7eee3;
-}
-
 /* daily note as card */
 
 .white-theme #journals {
@@ -1540,10 +1543,12 @@ html[data-theme="light"] {
 
 
 
+
+
 /***************************************************************
 ****************************************************************
 ****************************************************************
-****************************** D5 ******************************
+**************************** Dark 5 ****************************
 ****************************************************************
 ****************************************************************
 ***************************************************************/
@@ -1580,7 +1585,9 @@ html[data-theme="dark"] {
     
     --ct-page-font-color: #cec5ba;
     --ct-page-title-color: #d2bea4;
+    --ct-page-title-text-shadow: none;
     --ct-heading-color: var(--ct-page-title-color);
+    --ct-heading-text-shadow: var(--ct-page-title-text-shadow);
     
     --ct-title-3dots-icon-color: rgba(91, 74, 66, .7);
     
@@ -1711,6 +1718,7 @@ html[data-theme="dark"] {
     --ct-sidebar-item-background: var(--ct-page-background);
     --ct-sidebar-item-box-shadow: var(--ct-page-box-shadow);
     --ct-sidebar-item-title-color: var(--ct-page-title-color);
+    --ct-sidebar-item-title-text-shadow: var(--ct-page-title-text-shadow);
     --ct-sidebar-item-close-button-color: #82695a;
     --ct-sidebar-page-references-background: var(--ct-page-properties-background);
     --ct-sidebar-page-properties-background: var(--ct-page-properties-background);
