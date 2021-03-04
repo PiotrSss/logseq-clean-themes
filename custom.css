@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Short+Stack&display=swap');
 
 /***************************************************************
 ****************************************************************
@@ -13,12 +15,13 @@
     
     --ct-page-border-radius: 5px;
     
-    --ct-font-family: 'Overpass', 'IBM Plex Sans', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --ct-font-family: 'Overpass', 'Asap', 'IBM Plex Sans', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     --ct-line-height: 1.5;
     --ct-text-size: 1em;
     --ls-font-family: var(--ct-font-family);
-    --ct-page-title-font-family: 'IBM Plex Sans', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    --ct-page-title-font-size: 42px;
+    --ct-page-title-font-family: 'Asap','Overpass', 'IBM Plex Sans', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --ct-page-title-font-size: 36px;
+    --ct-page-title-line-height: 40px;
     --ct-page-title-font-weight: 900;
     --ct-page-title-font-style: normal;
     
@@ -65,11 +68,26 @@
     
     --ct-sidebar-item-border: none;
     --ct-sidebar-item-border-radius: 5px;
+    --ct-sidebar-title-font-family: var(--ct-page-title-font-family);
+    
 }
 
 html, body {
     line-height: var(--ct-line-height);
     font-size: var(--ct-text-size);
+}
+
+html[data-theme="light"] {
+    background: var(--ls-primary-background-color);
+}
+
+html[data-theme="dark"] {
+    background: var(--ls-primary-background-color);
+}
+
+.theme-inner {
+    background: var(--ct-background-picture, transparent) var(--ct-background-picture-position, center center) fixed;
+    background-size: cover;
 }
 
 #app-container {
@@ -80,8 +98,9 @@ html, body {
 }
 
 
-.cp__header svg {
+.cp__header-logo svg {
     fill: var(--ct-logo-color);
+    filter: none
 }
 #head .fade-link {
     opacity: 1;
@@ -126,6 +145,12 @@ a.chosen {
     border: none !important;
 }
 
+/* loading screen */
+
+.cp__sidebar-main-content > .mt-20 {
+    display: none;
+}
+
 
 /***************************************************************
 ************************** MAIN AREA ***************************
@@ -142,15 +167,52 @@ a.chosen {
     box-shadow: var(--ct-page-box-shadow);
 }
 
-#search_field {
+hr {
+    border-top: var(--ct-hr-border-top);
+}
+
+/* < > buttons */
+
+.cp__header > a.navigation {
+    opacity: .9;
+}
+.cp__header > a.navigation svg {
+    color: var(--ct-desktop-nav-buttons-color);
+}
+
+/* searchbar */
+
+#search-wrapper {
+    opacity: 0;
+    transition: .3s;
+}
+
+#search-wrapper:hover,
+#search-wrapper:focus-within {
+    opacity: 1;
+}
+
+#search-field {
     background: var(--ct-search-field-background) !important;
     color: var(--ct-search-field-text-color);
+    max-width: 100%;
+    opacity: 1;
 }
-#search_field:focus {
+#search-field:focus {
     background: var(--ct-search-field-background-focus);
     color: var(--ct-search-field-text-color);
 }
+#search-field::-webkit-input-placeholder {
+    color: var(--ct-search-field-text-color);;
+}
+#search-wrapper > div:first-child {
+    opacity: 1;
+}
 
+#search-wrapper svg, #search-wrapper svg,
+#search-wrapper:focus-within svg, #search-wrapper:hover svg {
+    color: var(--ct-search-icon-color);
+}
 
 /* Page title */
 
@@ -160,6 +222,14 @@ h1.title {
     font-weight: var(--ct-page-title-font-weight);
     font-style: var(--ct-page-title-font-style);
     color: var(--ct-page-title-color);
+    line-height: var(--ct-page-title-line-height);
+    margin-top: 30px;
+    text-shadow: var(--ct-page-title-text-shadow, none);
+}
+
+a.title h1.title {
+    margin-top: 0;
+    text-shadow: var(--ct-page-title-text-shadow, none);
 }
 
 /* ... icon */
@@ -197,12 +267,17 @@ a.bg-base-2.px-1.ml-1.mr-3:hover {
     font-weight: var(--ct-heading-font-weight);
     font-style: var(--ct-heading-font-style);
     color: var(--ct-heading-color);
+    text-shadow: var(--ct-heading-text-shadow, none);
 }
 
 /* text */
 
 .cp__sidebar-main-content {
     color: var(--ct-page-font-color);
+}
+
+.block-content .with-bg-color {
+    border-radius: 3px;
 }
 
 /* block properties */
@@ -217,6 +292,7 @@ a.bg-base-2.px-1.ml-1.mr-3:hover {
 
 .references-blocks .color-level {
     background: var(--ct-page-references-background);
+    border: var(--ct-page-references-border);
 }
 
 /* vertical lines and bullets */
@@ -235,6 +311,10 @@ a.bg-base-2.px-1.ml-1.mr-3:hover {
     background-color: var(--ct-bullet-closed-color)
 }
 
+.block-control svg {
+    color: var(--ct-block-arrow-color);
+}
+
 
 /* blockquote */
 
@@ -243,6 +323,7 @@ blockquote {
     border-left: var(--ct-quote-border-left);
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
+    color: var(--ct-quote-font-color, var(--ct-page-font-color));
 }
 
 /* page embed */
@@ -279,8 +360,8 @@ blockquote {
     border-radius: var(--ct-checkbox-border-radius);
     border: 2px solid var(--ct-checkbox-border-color) !important;
     background-color: var(--ct-checkbox-background-color) !important;
-    margin-top: -2px !important;
-    margin-right: 5px !important;
+    margin-top: -3px !important;
+    margin-right: 6px !important;
 }
 
 .form-checkbox:checked,
@@ -300,7 +381,7 @@ blockquote {
     border: none;
     padding: 0;
     margin-left: -3px;
-    margin-right: 2px;
+    margin-right: 3px;
     color: var(--ct-checkbox-marker-switch-color);
     font-size: inherit;
     display: var(--ct-checkbox-marker-switch-display)
@@ -369,6 +450,9 @@ blockquote {
 .page-reference {
     border-radius: var(--ct-page-reference-border-radius);
     background: var(--ct-page-reference-background);
+    padding-left: 2px;
+    padding-right: 2px;
+    font-weight: 600;
 }
 
 .page-reference:hover {
@@ -379,6 +463,8 @@ blockquote {
     opacity: 1;
     color: var(--ct-page-reference-brackets-color);
     display: var(--ct-page-reference-brackets-display);
+    font-family: 'Short Stack';
+    font-weight: 900;
 }
 
 .page-reference:hover .bracket {
@@ -386,7 +472,7 @@ blockquote {
 }
 
 .page-reference .page-ref {
-    color: var(--ct-page-reference-color);
+    color: var(--ct-page-reference-color);   
 }
 
 .page-reference:hover .page-ref {
@@ -425,6 +511,13 @@ blockquote {
 .block-ref .page-reference:hover .page-ref {
     color: var(--ct-page-reference-color-inside-block-reference-hover);
 }
+
+/* page reference inside highlight */
+
+mark .page-reference .page-ref {
+    color: var(--ct-page-reference-color-inside-highlight);
+}
+
 
 
 /* page reference as parent */
@@ -477,6 +570,7 @@ a.tag {
     opacity: var(--ct-tag-opacity);
     background: var(--ct-tag-background);
     color: var(--ct-tag-color);
+    font-weight: 600;
 }
 
 a.tag:hover {
@@ -551,6 +645,7 @@ mark {
     border-radius: var(--ct-mark-border-radius);
     background: var(--ct-mark-background);
     color: var(--ct-mark-color);
+    font-size: inherit;
 }
 
 
@@ -631,6 +726,17 @@ b, strong {
     color: var(--ct-query-result-page-title-hover);
 }
 
+/* bullets allignment to the left */
+
+.cp__sidebar-main-content .block-control, .cp__sidebar-main-content .block-control:hover {
+/*     margin-left: -4px; */
+}
+
+.cp__sidebar-main-content > div > div > div > div:nth-child(3) {
+/*     margin-left: -7px; */
+}
+
+
 /***************************************************************
 ************************ RIGHT SIDEBAR *************************
 ***************************************************************/
@@ -660,7 +766,7 @@ b, strong {
     border: var(--ct-sidebar-item-border);
     padding: 15px;
     border-radius: var(--ct-sidebar-item-border-radius);
-    background-color: var(--ct-sidebar-item-background);
+    background: var(--ct-sidebar-item-background);
     box-shadow: var(--ct-sidebar-item-box-shadow);
 }
 
@@ -669,7 +775,7 @@ b, strong {
 }
 
 .cp__right-sidebar-settings-btn {
-    color: var(--ct-sidebar-tabs-color);
+    color: var(--ct-sidebar-tabs-color) !important;
 }
 
 .cp__right-sidebar .close-arrow svg {
@@ -683,23 +789,27 @@ b, strong {
 }
 [class="opacity-50 hover:opacity-100 flex items-center pr-1"] svg {
     margin-left: 0px !important;
+    color: var(--ct-block-arrow-color);
 }
 
-.sidebar-item .ml-1 {
+.sidebar-item .ml-1:not(.text-sm) {
     font-size: 1.4em;
     font-weight: bold;
     line-height: 1.2; 
     margin-left: 4px;
+    font-family: var(--ct-sidebar-title-font-family);
 }
 
 .sidebar-item .ml-1 a {
     color: var(--ct-sidebar-item-title-color);
+    text-shadow: var(--ct-sidebar-item-title-text-shadow, none);
 }
 
 /* title when only part of page is open in sidebar */
 
 .sidebar-item .block-parents a {
     color: var(--ct-sidebar-item-title-color);
+    font-family: var(--ct-sidebar-title-font-family);
 }
 
 /* close button */
@@ -773,6 +883,23 @@ b, strong {
     color: var(--ct-help-pages-color);
 }
 
+/* adding brackets to pages in contents */
+
+#contents .page-ref:before,
+#contents .page-ref:after {
+    content: "[[";
+    opacity: .7;
+    color: var(--ct-page-reference-brackets-color);
+    display: var(--ct-page-reference-brackets-display);
+    font-family: 'Short Stack';
+    font-weight: 900;
+}
+
+#contents .page-ref:after {
+    content: "]]";
+}
+
+
 /***************************************************************
 **************************** MISC ******************************
 ***************************************************************/
@@ -783,10 +910,11 @@ textarea {
 
 ::selection {
     background: var(--ct-text-selection-color);
+    color: var(--ct-text-selection-font-color, inherit);
 }
 
 .ls-block.selected {
-    border-bottom-color: var(--ct-page-background);
+    border-bottom-color: var(--ct-block-selected-border-bottom-color);
 }
 .block-highlight, .content .selected {
     background: var(--ct-block-selected-background);
@@ -806,37 +934,204 @@ textarea {
 }
 
 
+/* hide bullet for heading */
+
+[style="height: 24px; margin-top: 22px; float: left;"] {
+    opacity: 0;
+}
+[style="height: 24px; margin-top: 22px; float: left;"]:hover {
+    opacity: 1;
+}
+
+
+/* tables */
+
+tr {
+    border-bottom: none;
+}
+
+.table-wrapper {
+    max-width: 100%;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+}
+
+.table-wrapper table {
+    margin: 0;
+}
+
+.table-wrapper tr,
+.cp__sidebar-help-docs table tr {
+    border-bottom: none;
+}
+
+.table-wrapper thead tr,
+.cp__sidebar-help-docs table thead tr,
+.flex-1 table thead tr{
+    background: var(--ct-table-head-background, none) !important;   
+}
+
+.table-wrapper thead th,
+.cp__sidebar-help-docs table thead th,
+.flex-1 table thead th {
+    color: var(--ct-table-head-color, #fff);
+}
+
+.table-wrapper tbody tr:nth-child(odd),
+.cp__sidebar-help-docs table tbody tr:nth-child(odd),
+.flex-1 table tbody tr:nth-child(odd) {
+    background: var(--ct-table-row-odd-bg, rgb(210 194 173 / 50%));
+    color: var(--ct-table-row-odd-color);
+}
+
+.table-wrapper tbody tr:nth-child(even),
+.cp__sidebar-help-docs table tbody tr:nth-child(even),
+.flex-1 table tbody tr:nth-child(even){
+    background: var(--ct-table-row-even-bg, rgb(185 172 157 / 70%));
+    color: var(--ct-table-row-even-color);
+}
+
+.table-wrapper thead th,
+.cp__sidebar-help-docs table thead th,
+.flex-1 table thead th{
+    border-bottom: var(--ct-table-head-border-bottom, 2px solid #a59585);
+}
+
+.table-wrapper tbody td,
+.cp__sidebar-help-docs table tbody td,
+.flex-1 table tbody td {
+    border-bottom: var(--ct-table-row-border-bottom, none);
+}
+
+.table-wrapper tr:last-child td,
+.cp__sidebar-help-docs table tr:last-child td,
+.flex-1 table tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Settings */
+
+.ui__modal-overlay div {
+    background: var(--ct-settings-overlay-background);
+}
+
+.ui__modal-panel,
+.settings-modal {
+    background: var(--ct-settings-background);
+}
+
+.cp__settings-main>h1.title {
+    margin-top: 0;
+}
+
+.ui__toggle .wrapper.bg-indigo-600 {
+    background: var(--ct-settings-switcher-background);
+}
+
+.settings-modal .form-select {
+    background: var(--ct-settings-select-background);
+    color: var(--ct-settings-select-color);
+    border: none;
+}
+
+.settings-modal .form-input {
+    border: var(--ct-settings-input-border);
+    color: var(--ct-settings-input-color);
+    background: none;
+}
+
+.settings-modal hr {
+    border-color: var(--ct-settings-hr-color);
+}
+
+/* "Rename" modal */
+
+.ui__modal-overlay div {
+    background: var(--ct-rename-overlay-background, #222);
+}
+
+.ui__modal-panel {
+    background: var(--ct-rename-background, #1e1e1e);
+}
+
+#modal-headline {
+    color: var(--ct-rename-header-color, #d5d5d5);
+}
+
+.ui__modal-panel .form-input {
+    background: var(--ct-rename-background);
+    color: var(--ct-rename-input-color, #fff) !important;
+}
+
+.ui__modal-panel button.inline-flex.justify-center.w-full.rounded-md.border.border-gray-300 {
+    background: var(--ct-rename-cancel-background, #222);
+    color: var(--ct-rename-cancel-color, #d5d5d5);
+    border: none;
+    box-shadow: none;
+}
+
 /* Calendar */
 
+#contents .logseq-tools-calendar .page-ref:before,
+#contents .logseq-tools-calendar .page-ref:after {
+    display: none;
+}
+
+.logseq-tools-calendar {
+    background: var(--ct-calendar-background);
+    padding: 0px 0px 1px 0px;
+    border-radius: 20px;
+    border-top-left-radius: 5px;
+    margin-bottom: 15px;
+    
+}
+
+#contents .logseq-tools-calendar {
+    margin-left: -21px;
+}
 
 .logseq-tools-calendar h2 {
-    margin-bottom: 5px;
-    text-align: center;
+    background: var(--ct-calendar-header-background);
+    color: var(--ct-calendar-header-color, var(--ct-heading-color));
+    display: inline-block;
+    margin: 3px 0 0 3px;
+    padding: 2px 13px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 20px;
 }
+
 .logseq-tools-calendar table {
-    margin-top: 5px;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 .cp__sidebar-main-content .logseq-tools-multiple-calendars {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 15px;
+    padding: 0;
+    justify-content: space-between;
 }
 
 .cp__sidebar-main-content .logseq-tools-multiple-calendars .logseq-tools-calendar {
-    flex: 0 50%;
+    flex: 0 49%;
     box-sizing: border-box;
-    padding: 0 15px;
+    padding: 0;
 }
 
 .logseq-tools-calendar tr {
     background: none !important;
 }
 
+.logseq-tools-calendar td {
+    font-weight: 600;
+}
+
 .logseq-tools-calendar th,
 .logseq-tools-calendar td,
 .logseq-tools-calendar tr {
-    border: none;
+    border: none !important;
 }
 
 .logseq-tools-calendar th,
@@ -852,425 +1147,24 @@ textarea {
     color: var(--ct-calendar-day-color-hover);
 }
 
-
-/* Calendar - pages from other months */
-
 .logseq-tools-calendar .outofmonth {
     opacity: .3;
 }
 
 
-/***************************************************************
-****************************************************************
-****************************************************************
-************************ LIGHT - CLEAN *************************
-****************************************************************
-****************************************************************
-***************************************************************/
 
-.white-theme,
-html[data-theme=light] {
-    
-    --ct-background: #f7f7f7;
-    --ls-primary-background-color: var(--ct-background);
-    
-    --ls-scrollbar-foreground-color: rgba(0, 0, 0, 0.1);
-    --ls-scrollbar-background-color: rgba(0, 0, 0, 0.05);
-    
-    --ct-logo-color: #5d5d5d;
-    --ct-repo-name-color: #d5d5d5;
-    --ct-top-right-3dots-icon-color: #d5d5d5;
-    
-    --ct-search-field-background: #fff;
-    --ct-search-field-background-focus: #fff;
-    --ct-search-field-text-color: #333;
-    
-    --ct-page-background: #fff;
-    --ct-page-box-shadow: 0px 6px 6px 4px rgb(113 113 113 / 8%);
-    
-    --ct-page-font-color: #333;
-    --ct-heading-color: var(--ct-page-font-color);
-    --ct-page-title-color: var(--ct-page-font-color);
-    
-    --ct-title-3dots-icon-color: #d5d5d5;
-    
-    --ct-file-path-color: #a2c4ba;
-    --ct-file-path-color-hover: #698c82;
-    
-    --ct-page-references-background: #f7f7f7;
-    
-    --ct-page-properties-background: #f7f7f7;
-    
-    --ct-guideline-color: #f1f1f1;
-    --ct-guideline-size: 1px;
-    --ct-guideline-style: solid;
-    
-    --ct-bullet-size: 6px;
-    --ct-bullet-color: #d5d5d5;
-    --ct-bullet-closed-color: #8e8e8e;
-    
-    --ct-block-properties-background: #f7f7f7;
-    
-    --ct-quote-background: #f7f7f7;
-    --ct-quote-border-left: 4px solid #57ad95;
-    
-    --ct-page-embed-background: #f7f7f7;
-    --ct-page-embed-header-color: #57ad95;
-    
-    --ct-block-embed-background: #f7f7f7;
-    
-    --ct-block-references-count-color: #999;
-    --ct-block-references-count-background: #f7f7f7;
-    --ct-block-references-count-color-hover: #5d5d5d;
-    --ct-block-references-count-background-hover: #dfdfdf;
-    
-    --ct-checkbox-border-color: #57ad95;
-    --ct-checkbox-border-color-checked: #57ad95;
-    --ct-checkbox-background-color: transparent;
-    --ct-checkbox-background-color-checked: #57ad95;
-    --ct-checkbox-doing-border-color: #ec7b7b;
-    --ct-checkbox-doing-background-color: var(--ct-checkbox-background-color);
-    --ct-checkbox-marker-switch-color: #57ad95;
-    --ct-checkbox-doing-marker-switch-color: #ec7b7b;
-    --ct-task-done-text-color: #8e8e8e;
-    --ct-scheduled-or-deadline-color: #57ad95;
-    --ct-scheduled-or-deadline-color-hover: #195948;
-    
-    --ct-external-link-background: none;
-    --ct-external-link-background-hover: #f7f7f7;
-    --ct-external-link-border-bottom: 1px solid #57ad95;
-    --ct-external-link-border-bottom-hover: 1px solid #195948;
-    --ct-external-link-color: #57ad95;
-    --ct-external-link-color-hover: #195948;
-    --ct-external-link-background-inside-block-reference: var(--ct-external-link-background);
-    --ct-external-link-background-inside-block-reference-hover: var(--ct-external-link-background-hover);
-    --ct-external-link-border-bottom-inside-block-reference: var(--ct-external-link-border-bottom);
-    --ct-external-link-border-bottom-inside-block-reference-hover: var(--ct-external-link-border-bottom-hover);
-    --ct-external-link-color-inside-block-reference: var(--ct-external-link-color);
-    --ct-external-link-color-inside-block-reference-hover: var(--ct-external-link-color-hover);
-    
-    --ct-page-reference-background: transparent;
-    --ct-page-reference-background-hover: #f7f7f7;
-    --ct-page-reference-brackets-color: #d5d5d5;
-    --ct-page-reference-brackets-color-hover: transparent;
-    --ct-page-reference-color: #57ad95;
-    --ct-page-reference-color-hover: #195948;
-    --ct-page-reference-inside-page-references-color: var(--ct-page-reference-color);
-    --ct-page-reference-inside-page-references-color-hover: var(--ct-page-reference-color-hover);
-    --ct-page-reference-background-inside-block-reference: var(--ct-page-reference-background);
-    --ct-page-reference-background-inside-block-reference-hover: var(--ct-page-reference-background-hover);
-    --ct-page-reference-brackets-color-inside-block-reference: var(--ct-page-reference-brackets-color);
-    --ct-page-reference-brackets-color-inside-block-reference-hover: var(--ct-page-reference-brackets-color-hover);
-    --ct-page-reference-color-inside-block-reference: var(--ct-page-reference-color);
-    --ct-page-reference-color-inside-block-reference-hover: var(--ct-page-reference-color-hover);
-    
-    --ct-tag-background: none;
-    --ct-tag-background-hover: #f7f7f7;
-    --ct-tag-color: #57ad95;
-    --ct-tag-color-hover: #195948;
-    --ct-tag-background-inside-block-reference: var(--ct-tag-background);
-    --ct-tag-background-inside-block-reference-hover: var(--ct-tag-background-hover);
-    --ct-tag-color-inside-block-reference: var(--ct-tag-color);
-    --ct-tag-color-inside-block-reference-hover: var(--ct-tag-color-hover);
-    
-    --ct-block-reference-border-bottom: 1px solid #57ad95;
-    --ct-block-reference-border-bottom-hover: 1px solid #195948;
-    --ct-block-reference-background: rgba(247, 247, 247, .6);
-    --ct-block-reference-background-hover: #f7f7f7;
-    --ct-block-reference-color: #333;
-    --ct-block-reference-color-hover: #333;
-    --ct-block-reference-hash-color: #57ad95;
-    
-    --ct-mark-background: #fef3ac;
-    --ct-mark-color: inherit;
-    
-    --ct-italics-color: inherit;
-    
-    --ct-bold-color: #000;
-    
-    --ct-inline-code-background: #195948;
-    --ct-inline-code-color: #fff;
-    
-    --ct-query-background: #f7f7f7;
-    --ct-query-header-background: #7f9891;
-    --ct-query-header-color: #fff;
-    --ct-query-result-page-title: var(--ct-page-reference-color);
-    --ct-query-result-page-title-hover: var(--ct-page-reference-color-hover);
-    
-    --ct-calendar-day-color: #57ad95;
-    --ct-calendar-day-color-hover: #195948;
-    
-    
-    --ct-sidebar-resizer-background: none;
-    --ct-sidebar-resizer-background-hover: #d5d5d5;
-    
-    --ct-sidebar-background: none;
-    --ct-sidebar-tabs-color: #9c9c9c;
-    --ct-sidebar-close-arrow-color: #9c9c9c;
-    --ct-sidebar-font-color: var(--ct-page-font-color);
-    --ct-sidebar-item-background: #fff;
-    --ct-sidebar-item-box-shadow: 0px 6px 6px 4px rgb(113 113 113 / 8%);
-    --ct-sidebar-item-title-color: #57ad95;
-    --ct-sidebar-item-close-button-color: #9c9c9c;
-    --ct-sidebar-page-references-background: #f7f7f7;
-    --ct-sidebar-page-properties-background: #f7f7f7;
-    --ct-sidebar-block-properties-background: #f7f7f7;
-    --ct-sidebar-quote-background: #f7f7f7;
-    --ct-sidebar-quote-border-left: 4px solid #57ad95;
-    --ct-sidebar-page-embed-background: #f7f7f7;
-    --ct-sidebar-block-embed-background: #f7f7f7;
-    
-    --ct-recent-pages-color: #57ad95;
-    --ct-help-pages-color: #57ad95;
-    
-    --ct-caret-color: #717171;
-    --ct-text-selection-color: #cedbcc;
-    --ct-block-selected-background: #d5dedb;
-    --ct-menu-dropdown-background: #fff;
-    --ct-menu-dropdown-color: #333;
-    --ct-menu-dropdown-hover-color: #d7d7d7;
-    --ct-menu-focused-by-keyboard: #a8a8a8;
-    
-    --ct-journal-border-height: 1px;
-    --ct-journal-border-style: solid;
-    --ct-journal-border-color: #d5d5d5;
-    
-    --ct-slides-font-color: var(--ct-sidebar-font-color);
-    --ct-slides-background: var(--ct-sidebar-item-background);
+
+/*=============================================================================================================================
+==== highlight current path by cannnibalox v0.2 https://discuss.logseq.com/t/css-highlights-current-path-bullets-color/371 ====
+=============================================================================================================================*/
+
+.ls-block .bullet {
+    background-color: var(--ct-page-reference-color);
 }
 
-
-
-/***************************************************************
-**************************** MISC ******************************
-***************************************************************/
-
-
-.white-theme #contents .logseq-tools-calendar {
-    background: #f7f7f7;
-    padding: 0px 0px 1px 0px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-    margin-left: -17px;
+.ls-block:not(:focus-within) .bullet {
+    background-color: var(--ct-bullet-color);
 }
-
-.white-theme #contents .logseq-tools-calendar h2 {
-    background: #e6e6e6;
-    display: inline-block;
-    margin: 0;
-    padding: 2px 13px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-
-/***************************************************************
-****************************************************************
-****************************************************************
-************************* DARK - CLEAN *************************
-****************************************************************
-****************************************************************
-***************************************************************/
-
-dark,
-html[data-theme=dark] {
-    
-/*     --ct-background: #252525; */
-    --ct-background: #1e1e1e;
-    --ls-primary-background-color: var(--ct-background);
-    
-    --ls-scrollbar-foreground-color: rgb(66, 66, 66);
-    --ls-scrollbar-background-color: rgb(28, 28, 28);
-    
-    --ct-logo-color: #5d5d5d;
-    --ct-repo-name-color: #4a4a4a;
-    --ct-top-right-3dots-icon-color: #4a4a4a;
-    
-    --ct-search-field-background: #1e1e1e;
-    --ct-search-field-background-focus: #1e1e1e;
-    --ct-search-field-text-color: #d5d5d5;
-    
-    --ct-page-background: #1e1e1e;
-/*     --ct-page-box-shadow: 0px 6px 6px 4px rgba(0, 0, 0, .08); */
-    
-    --ct-page-font-color: #bbb;
-    --ct-heading-color: var(--ct-page-font-color);
-    --ct-page-title-color: var(--ct-page-font-color);
-    
-    --ct-title-3dots-icon-color: #4a4a4a;
-    
-    --ct-file-path-color: #698c82;
-    --ct-file-path-color-hover: #a2c4ba;
-    
-    --ct-page-references-background: #222;
-    
-    --ct-page-properties-background: #222;
-    
-    --ct-guideline-color: #2d2d2d;
-    --ct-guideline-size: 1px;
-    --ct-guideline-style: solid;
-    
-    --ct-bullet-size: 6px;
-    --ct-bullet-color: #4d4d4d;
-    --ct-bullet-closed-color: #8e8e8e;
-    
-    --ct-block-properties-background: #242424;
-    
-    --ct-quote-background: #242424;
-    --ct-quote-border-left: 4px solid #57ad95;
-    
-    --ct-page-embed-background: #242424;
-    --ct-page-embed-header-color: #57ad95;
-    
-    --ct-block-embed-background: #242424;
-    
-    --ct-block-references-count-color: #999;
-    --ct-block-references-count-background: #242424;
-    --ct-block-references-count-color-hover: #5d5d5d;
-    --ct-block-references-count-background-hover: #dfdfdf;
-    
-    --ct-checkbox-border-color: #57ad95;
-    --ct-checkbox-border-color-checked: #57ad95;
-    --ct-checkbox-background-color: transparent;
-    --ct-checkbox-background-color-checked: #57ad95;
-    --ct-checkbox-doing-border-color: #ec7b7b;
-    --ct-checkbox-doing-background-color: var(--ct-checkbox-background-color);
-    --ct-checkbox-marker-switch-color: #57ad95;
-    --ct-checkbox-doing-marker-switch-color: #ec7b7b;
-    --ct-task-done-text-color: #8e8e8e;
-    --ct-scheduled-or-deadline-color: #57ad95;
-    --ct-scheduled-or-deadline-color-hover: #195948;
-    
-    --ct-external-link-background: none;
-    --ct-external-link-background-hover: #242424;
-    --ct-external-link-border-bottom: 1px solid #57ad95;
-    --ct-external-link-border-bottom-hover: 1px solid #195948;
-    --ct-external-link-color: #57ad95;
-    --ct-external-link-color-hover: #195948;
-    --ct-external-link-background-inside-block-reference: var(--ct-external-link-background);
-    --ct-external-link-background-inside-block-reference-hover: var(--ct-external-link-background-hover);
-    --ct-external-link-border-bottom-inside-block-reference: var(--ct-external-link-border-bottom);
-    --ct-external-link-border-bottom-inside-block-reference-hover: var(--ct-external-link-border-bottom-hover);
-    --ct-external-link-color-inside-block-reference: var(--ct-external-link-color);
-    --ct-external-link-color-inside-block-reference-hover: var(--ct-external-link-color-hover);
-    
-    --ct-page-reference-background: transparent;
-    --ct-page-reference-background-hover: #242424;
-    --ct-page-reference-brackets-color: #464646;
-    --ct-page-reference-brackets-color-hover: #464646;
-    --ct-page-reference-color: #57ad95;
-    --ct-page-reference-color-hover: #7fcab5;
-    --ct-page-reference-inside-page-references-color: var(--ct-page-reference-color);
-    --ct-page-reference-inside-page-references-color-hover: var(--ct-page-reference-color-hover);
-    --ct-page-reference-background-inside-block-reference: var(--ct-page-reference-background);
-    --ct-page-reference-background-inside-block-reference-hover: var(--ct-page-reference-background-hover);
-    --ct-page-reference-brackets-color-inside-block-reference: var(--ct-page-reference-brackets-color);
-    --ct-page-reference-brackets-color-inside-block-reference-hover: var(--ct-page-reference-brackets-color-hover);
-    --ct-page-reference-color-inside-block-reference: var(--ct-page-reference-color);
-    --ct-page-reference-color-inside-block-reference-hover: var(--ct-page-reference-color-hover);
-    
-    --ct-tag-background: none;
-    --ct-tag-background-hover: #242424;
-    --ct-tag-color: #57ad95;
-    --ct-tag-color-hover: #195948;
-    --ct-tag-background-inside-block-reference: var(--ct-tag-background);
-    --ct-tag-background-inside-block-reference-hover: var(--ct-tag-background-hover);
-    --ct-tag-color-inside-block-reference: var(--ct-tag-color);
-    --ct-tag-color-inside-block-reference-hover: var(--ct-tag-color-hover);
-    
-    --ct-block-reference-border-bottom: 1px solid #57ad95;
-    --ct-block-reference-border-bottom-hover: 1px solid #57ad95;
-    --ct-block-reference-background: rgba(60, 87, 78, .6);
-    --ct-block-reference-background-hover: rgba(60, 87, 78, 1);
-    --ct-block-reference-color: #fff;
-    --ct-block-reference-color-hover: #fff;
-    --ct-block-reference-hash-color: #57ad95;
-    
-    --ct-mark-background: #387967;
-    --ct-mark-color: #fff;
-    
-    --ct-italics-color: inherit;
-    
-    --ct-bold-color: #fff;
-    
-    --ct-inline-code-background: #195948;
-    --ct-inline-code-color: #fff;
-    
-    --ct-query-background: #222;
-    --ct-query-header-background: #7f9891;
-    --ct-query-header-color: #fff;
-    --ct-query-result-page-title: var(--ct-page-reference-color);
-    --ct-query-result-page-title-hover: var(--ct-page-reference-color-hover);
-    
-    --ct-calendar-day-color: #57ad95;
-    --ct-calendar-day-color-hover: #195948;
-    
-    
-    --ct-sidebar-resizer-background: none;
-    --ct-sidebar-resizer-background-hover: #d5d5d5;
-    
-    --ct-sidebar-background: none;
-    --ct-sidebar-tabs-color: #757575;
-    --ct-sidebar-close-arrow-color: #757575;
-    --ct-sidebar-font-color: var(--ct-page-font-color);
-/*     --ct-sidebar-item-background: #1e1e1e; */
-    --ct-sidebar-item-background: #222;
-/*     --ct-sidebar-item-box-shadow: 0px 6px 6px 4px rgba(0, 0, 0, .08); */
-    --ct-sidebar-item-title-color: #57ad95;
-    --ct-sidebar-item-close-button-color: #9c9c9c;
-    --ct-sidebar-page-references-background: #242424;
-    --ct-sidebar-page-properties-background: #242424;
-    --ct-sidebar-block-properties-background: #242424;
-    --ct-sidebar-quote-background: #242424;
-    --ct-sidebar-quote-border-left: 4px solid #57ad95;
-    --ct-sidebar-page-embed-background: #242424;
-    --ct-sidebar-block-embed-background: #242424;
-    
-    --ct-recent-pages-color: #57ad95;
-    --ct-help-pages-color: #57ad95;
-    
-    --ct-caret-color: #57ad95;
-    --ct-text-selection-color: #2a5e4f;
-    --ct-block-selected-background: #23483c;
-    --ct-menu-dropdown-background: #202020;
-    --ct-menu-dropdown-color: #d7d7d7;
-    --ct-menu-dropdown-hover-color: #444;
-    --ct-menu-focused-by-keyboard: #333;
-    
-    --ct-journal-border-height: 1px;
-    --ct-journal-border-style: solid;
-    --ct-journal-border-color: #333;
-    
-    --ct-slides-font-color: var(--ct-sidebar-font-color);
-    --ct-slides-background: var(--ct-sidebar-item-background);
-}
-
-
-
-/***************************************************************
-**************************** MISC ******************************
-***************************************************************/
-
-
-.dark-theme #contents .logseq-tools-calendar {
-    background: #242424;
-    padding: 0px 0px 1px 0px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-    margin-left: -17px;
-}
-
-.dark-theme #contents .logseq-tools-calendar h2 {
-    background: #202020;
-    display: inline-block;
-    margin: 0;
-    padding: 2px 13px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-
-
 
 /***************************************************************
 ****************************************************************
@@ -1289,8 +1183,8 @@ html[data-theme=dark] {
     padding: 0;
 }
 .extensions__code-lang {
-    background: #184439;
-    color: #F8F8F2;
+    background: var(--ct-code-block-lang-background, #184439);
+    color: var(--ct-code-block-lang-color, #F8F8F2);
     padding: 5px 8px;
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -1298,25 +1192,23 @@ html[data-theme=dark] {
 .cm-s-default {
 	font-size: 1em;
 	line-height: 1.5em;
-	font-family: inconsolata, monospace;
 	letter-spacing: 0.3px;
 	word-spacing: 1px;
-	background: #0e352b;
-	color: #F8F8F2;
+	background: var(--ct-code-block-background, #0e352b);
+	color: var(--ct-code-block-color, #F8F8F2);
+}
+.cm-s-default .CodeMirror-gutters {
+	box-shadow: var(--ct-code-block-line-numbers-shadow, 1px 0 2px 0 rgba(0, 0, 0, 0.5));
+	background-color: var(--ct-code-block-line-numbers-background, #0a2820);
+	padding-right: 0px;
+	z-index: 3;
+	border: none;
 }
 .cm-s-default .CodeMirror-lines {
 	padding: 8px 0;
 }
 .cp__right-sidebar .cm-s-default .CodeMirror-line {
     background: none;
-}
-.cm-s-default .CodeMirror-gutters {
-	box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
-	background-color: #0a2820;
-	padding-right: 0px;
-	z-index: 3;
-	border: none;
 }
 .cm-s-default .CodeMirror-linenumber {
     left: -6px !important;
@@ -1325,7 +1217,7 @@ html[data-theme=dark] {
     padding-left: 3px;
 }
 .cm-s-default div.CodeMirror-cursor {
-	border-left: 3px solid #F8F8F2;
+	border-left: 2px solid #F8F8F2;
 }
 .cm-s-default .CodeMirror-activeline-background {
 	background: #3D2E2E77;
@@ -1349,11 +1241,11 @@ html[data-theme=dark] {
 	color: #E47D80;
 }
 .cm-s-default .cm-variable {
-	color: #f7e1f5;
+	color: var(--ct-code-block-variable-color, #f7e1f5);
 }
 .cm-s-default .cm-def {
 	font-style: italic;
-	color: #FFD2A6;
+    color: var(--ct-code-block-def-color, #FFD2A6);
 }
 .cm-s-default .cm-variable-2 {
 	color: #BAE682;
@@ -1369,15 +1261,600 @@ html[data-theme=dark] {
 }
 
 
+/***************************************************************
+****************************************************************
+****************************************************************
+**************************** MOBILE ****************************
+****************************************************************
+****************************************************************
+***************************************************************/
 
-
-
-
-
-.block-control, .block-control:hover {
-    margin-left: -4px;
+.is-mobile #head.cp__header {
+    background: var(--ct-mobile-head-background);
+    box-shadow: var(--ct-mobile-head-box-shadow, none);
 }
 
-.cp__sidebar-main-content > div > div > div > div:nth-child(3) {
-    margin-left: -7px;
+.is-mobile .cp__header-left-menu {
+    border: none;
+    color: var(--ct-mobile-head-menu-icon-color);
+}
+
+.is-mobile #search-wrapper,
+.is-mobile #search-field,
+.is-mobile #search-wrapper > div:first-child {
+    opacity: 1;
+}
+
+.is-mobile #left-bar,
+#left-bar>.head-wrap {
+    background: var(--ct-mobile-left-sidebar-background);
+}
+
+.is-mobile .head-wrap a {
+    opacity: 1;
+    color: var(--ct-mobile-sidebar-repo-name-color);
+}
+.is-mobile #left-bar .close-panel-btn {
+    color: var(--ct-mobile-close-sidebar-button-color);
+}
+
+.is-mobile #left-bar nav>a,
+.is-mobile #left-bar nav>a svg {
+    color: var(--ct-mobile-menu-color);
+}
+
+.is-mobile .left-sidebar-inner > .pl-4.pr-4 {
+    background: var(--ct-mobile-menu-separator-background) !important;
+}
+
+.is-mobile #mobile-editor-toolbar {
+    background: var(--ct-mobile-editor-toolbar-background);
+}
+
+.is-mobile #mobile-editor-toolbar svg {
+    color: var(--ct-mobile-editor-toolbar-color);
+}
+
+
+
+
+
+/***************************************************************
+****************************************************************
+****************************************************************
+**************************** Dark 1 ****************************
+****************************************************************
+****************************************************************
+***************************************************************/
+
+.dark-theme,
+html[data-theme="dark"] {
+    
+    --ls-icon-color: var(--ct-title-3dots-icon-color);
+    --ls-link-text-color: var(--ct-page-reference-color);
+    --ls-link-text-hover-color: var(--ct-page-reference-color-hover);
+    --ls-link-ref-text-color: var(--ct-page-reference-color);
+    --ls-link-ref-text-hover-color: var(--ct-page-reference-color-hover);
+    --ls-primary-text-color: var(--ct-page-font-color);
+    
+    --ct-background: #1e1e1e;
+    --ls-primary-background-color: var(--ct-background);
+    
+    --ct-desktop-nav-buttons-color: #404040;
+    
+    --ls-scrollbar-foreground-color: #444;
+    --ls-scrollbar-background-color: var(--ls-primary-background-color);
+    
+    --ct-logo-color: #404040;
+    --ct-repo-name-color: var(--ct-desktop-nav-buttons-color);
+    --ct-top-right-3dots-icon-color: var(--ct-desktop-nav-buttons-color);
+    
+    --ct-search-icon-color: #a0ca79;
+    --ct-search-field-background: #222;
+    --ct-search-field-background-focus: var(--ct-search-field-background);
+    --ct-search-field-text-color: #d5d5d5;
+    
+    --ct-page-background: #222;
+    --ct-page-box-shadow: none;
+    
+    --ct-page-font-color: #bbb;
+    --ct-page-title-color: var(--ct-page-font-color);
+    --ct-page-title-text-shadow: none;
+    --ct-heading-color: var(--ct-page-title-color);
+    --ct-heading-text-shadow: var(--ct-page-title-text-shadow);
+    
+    --ct-title-3dots-icon-color: rgba(87, 87, 87, .7);
+    
+    --ct-file-path-color: #909d74;
+    --ct-file-path-color-hover: #cbdbab;
+    
+    --ct-page-references-background: #252525;
+    --ct-page-references-border: 1px solid var(--ct-page-references-background);
+    
+    --ct-page-properties-background: #252525;
+    
+    --ct-hr-border-top: 1px solid #373737;
+    
+    --ct-guideline-color: #2d2d2d;
+    --ct-guideline-size: 1px;
+    --ct-guideline-style: solid;
+    
+    --ct-block-arrow-color: rgb(98, 98, 98);
+    
+    --ct-bullet-size: 6px;
+    --ct-bullet-color: #4d4d4d;
+    --ct-bullet-closed-color: #8e8e8e;
+    
+    --ct-block-properties-background: var(--ct-page-properties-background);
+    
+    --ct-quote-background: var(--ct-page-properties-background);
+    --ct-quote-border-left: 5px solid #909d74;
+    
+    --ct-page-embed-background: var(--ct-page-properties-background);
+    --ct-page-embed-header-color: var(--ct-page-reference-color);
+    
+    --ct-block-embed-background: var(--ct-page-properties-background);
+    
+    --ct-block-references-count-color: #999;
+    --ct-block-references-count-background: var(--ct-page-properties-background);
+    --ct-block-references-count-color-hover: #cecece;
+    --ct-block-references-count-background-hover: #595959;
+    
+    --ct-checkbox-border-color: #57ad95;
+    --ct-checkbox-border-color-checked: #497b6d;
+    --ct-checkbox-background-color: transparent;
+    --ct-checkbox-background-color-checked: #497b6d;
+    --ct-checkbox-doing-border-color: #ff6d6d;
+    --ct-checkbox-doing-background-color: var(--ct-checkbox-background-color);
+    --ct-checkbox-marker-switch-display: none;
+    --ct-checkbox-marker-switch-color: var(--ct-checkbox-border-color);
+    --ct-checkbox-doing-marker-switch-color: var(--ct-checkbox-doing-border-color);
+    --ct-task-done-text-color: #8e8e8e;
+    --ct-scheduled-or-deadline-color: var(--ct-file-path-color);
+    --ct-scheduled-or-deadline-color-hover: var(--ct-file-path-color-hover);
+    
+    --ct-external-link-text-decoration: none;
+    --ct-external-link-text-decoration-hover: none;
+    --ct-external-link-background: none;
+    --ct-external-link-background-hover: var(--ct-page-reference-background-hover);
+    --ct-external-link-border-bottom: 1px solid #6f3e29;
+    --ct-external-link-border-bottom-hover: 1px solid #ff966a;
+    --ct-external-link-color: #f98b5d;
+    --ct-external-link-color-hover: #ff966a;
+    --ct-external-link-background-inside-block-reference: var(--ct-external-link-background);
+    --ct-external-link-background-inside-block-reference-hover: var(--ct-external-link-background-hover);
+    --ct-external-link-border-bottom-inside-block-reference: var(--ct-external-link-border-bottom);
+    --ct-external-link-border-bottom-inside-block-reference-hover: var(--ct-external-link-border-bottom-hover);
+    --ct-external-link-color-inside-block-reference: var(--ct-external-link-color);
+    --ct-external-link-color-inside-block-reference-hover: var(--ct-external-link-color-hover);
+    
+    --ct-page-reference-background: transparent;
+    --ct-page-reference-background-hover: #333;
+    --ct-page-reference-brackets-color: #555;
+    --ct-page-reference-brackets-color-hover: #555;
+    --ct-page-reference-color: #a0ca79;
+    --ct-page-reference-color-hover: #b6df91;
+    --ct-page-reference-inside-page-references-color: var(--ct-page-reference-color);
+    --ct-page-reference-inside-page-references-color-hover: var(--ct-page-reference-color-hover);
+    --ct-page-reference-background-inside-block-reference: var(--ct-page-reference-background);
+    --ct-page-reference-background-inside-block-reference-hover: var(--ct-page-reference-background-hover);
+    --ct-page-reference-brackets-color-inside-block-reference: var(--ct-page-reference-brackets-color);
+    --ct-page-reference-brackets-color-inside-block-reference-hover: var(--ct-page-reference-brackets-color-hover);
+    --ct-page-reference-color-inside-block-reference: var(--ct-page-reference-color);
+    --ct-page-reference-color-inside-block-reference-hover: var(--ct-page-reference-color-hover);
+    --ct-page-reference-color-inside-highlight: #f8ffe9;
+    
+    --ct-tag-background: none;
+    --ct-tag-background-hover: var(--ct-page-reference-background-hover);
+    --ct-tag-color: var(--ct-page-reference-color);
+    --ct-tag-color-hover: var(--ct-page-reference-color-hover);
+    --ct-tag-background-inside-block-reference: var(--ct-tag-background);
+    --ct-tag-background-inside-block-reference-hover: var(--ct-tag-background-hover);
+    --ct-tag-color-inside-block-reference: var(--ct-tag-color);
+    --ct-tag-color-inside-block-reference-hover: var(--ct-tag-color-hover);
+    
+    --ct-block-reference-border-bottom: 1px solid #57ad95;
+    --ct-block-reference-border-bottom-hover: 1px solid #57ad95;
+    --ct-block-reference-background: rgba(60, 87, 78, .6);
+    --ct-block-reference-background-hover: rgba(60, 87, 78, 1);
+    --ct-block-reference-color: var(--ct-page-font-color);
+    --ct-block-reference-color-hover: #fff;
+    --ct-block-reference-hash-color: #57ad95;
+    
+    --ct-mark-background: #93a769;
+    --ct-mark-color: #1d1d1d;
+    
+    --ct-italics-color: inherit;
+    
+    --ct-bold-color: #fff;
+    
+    --ct-inline-code-background: #30403c;
+    --ct-inline-code-color: #fff;
+    
+    --ct-query-background: var(--ct-page-properties-background);
+    --ct-query-header-background: #30403c;
+    --ct-query-header-color: #fff;
+    --ct-query-result-page-title: var(--ct-page-reference-color);
+    --ct-query-result-page-title-hover: var(--ct-page-reference-color-hover);
+
+    --ct-calendar-background: #242424;
+    --ct-calendar-header-background: #202020;
+    --ct-calendar-header-color: var(--ct-page-font-color);
+    --ct-calendar-day-color: var(--ct-page-reference-color);
+    --ct-calendar-day-color-hover: var(--ct-page-reference-color-hover);
+
+    
+    --ct-sidebar-resizer-background: none;
+    --ct-sidebar-resizer-background-hover: rgba(43, 43, 43, .7);
+    
+    --ct-sidebar-background: none;
+    --ct-sidebar-tabs-color: #5a5a5a;
+    --ct-sidebar-close-arrow-color: var(--ct-block-arrow-color);
+    --ct-sidebar-font-color: var(--ct-page-font-color);
+    --ct-sidebar-item-background: #222;
+    --ct-sidebar-item-box-shadow: var(--ct-page-box-shadow);
+    --ct-sidebar-item-title-color: var(--ct-page-font-color);
+    --ct-sidebar-item-title-text-shadow: var(--ct-page-title-text-shadow);
+    --ct-sidebar-item-close-button-color: #797979;
+    --ct-sidebar-page-references-background: var(--ct-page-properties-background);
+    --ct-sidebar-page-properties-background: var(--ct-page-properties-background);
+    --ct-sidebar-block-properties-background: var(--ct-page-properties-background);
+    --ct-sidebar-quote-background: var(--ct-page-properties-background);
+    --ct-sidebar-quote-border-left: var(--ct-quote-border-left);
+    --ct-sidebar-page-embed-background: var(--ct-page-properties-background);
+    --ct-sidebar-block-embed-background: var(--ct-page-properties-background);
+    
+    --ct-recent-pages-color: var(--ct-page-reference-color);
+    --ct-help-pages-color: var(--ct-page-reference-color);
+    
+    --ct-caret-color: var(--ct-page-reference-color);
+    --ct-text-selection-color: #2a5e4f;
+    --ct-block-selected-background: #23483c;
+    --ct-block-selected-border-bottom-color: var(--ct-background);
+    --ct-menu-dropdown-background: #262626;
+    --ct-menu-dropdown-color: var(--ct-page-font-color);
+    --ct-menu-dropdown-hover-color: #666;
+    --ct-menu-focused-by-keyboard: #484848;
+    
+    --ct-journal-border-height: 1px;
+    --ct-journal-border-style: solid;
+    --ct-journal-border-color: #393939;
+    
+    --ct-slides-font-color: var(--ct-sidebar-font-color);
+    --ct-slides-background: var(--ct-sidebar-item-background);
+    
+    --ct-code-block-background: #292929;
+    --ct-code-block-color: #e1e1e1;
+    --ct-code-block-line-numbers-background: #1e1e1e;
+    --ct-code-block-lang-color: #6f6f6f;
+    --ct-code-block-lang-background: #242424;
+    
+    --ct-table-head-bg: none;
+    --ct-table-head-color: var(--ct-page-font-color);
+    --ct-table-row-odd-bg: #252525;
+    --ct-table-row-odd-color: var(--ct-page-font-color);
+    --ct-table-row-even-bg: #1e1e1e;
+    --ct-table-row-even-color: var(--ct-page-font-color);
+    --ct-table-head-border-bottom: 2px solid #333;
+    
+    --ct-settings-overlay-background: var(--ct-page-properties-background);
+    --ct-settings-background: #1e1e1e;
+    --ct-settings-switcher-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-color: rgb(255 255 255 / 70%);
+    --ct-settings-input-border: 1px solid var(--ls-scrollbar-foreground-color);
+    --ct-settings-input-color: rgb(255 255 255 / 70%);
+    --ct-settings-hr-color: var(--ct-journal-border-color);
+    
+    --ct-rename-overlay-background: var(--ct-settings-overlay-background);
+    --ct-rename-background: var(--ct-settings-background);
+    --ct-rename-header-color: #d5d5d5;
+    --ct-rename-input-color: #fff;
+    --ct-rename-cancel-background: #222;
+    --ct-rename-cancel-color: #d5d5d5;
+    
+    --ct-mobile-head-background: #1e1e1e;
+    --ct-mobile-head-menu-icon-color: var(--ct-page-font-color);
+    --ct-mobile-left-sidebar-background: #1e1e1e;
+    --ct-mobile-sidebar-repo-name-color: var(--ct-page-reference-color);
+    --ct-mobile-close-sidebar-button-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-separator-background: var(--ct-settings-hr-color);
+    --ct-mobile-editor-toolbar-background: #222;
+    --ct-mobile-editor-toolbar-color: var(--ct-page-font-color);
+}
+
+
+/***************************************************************
+**************************** MISC ******************************
+***************************************************************/
+
+
+/* daily note as card */
+
+.dark-theme #journals {
+    margin-bottom: 0;
+}
+.dark-theme .cp__sidebar-main-content {
+    margin-bottom: 600px;
+}
+.dark-theme #journals .journal-item:first-child {
+    min-height: 0;
+}
+.dark-theme #journals .journal-item {
+    margin-bottom: 0;
+}
+
+
+
+
+
+/***************************************************************
+****************************************************************
+****************************************************************
+**************************** Light 1 ***************************
+****************************************************************
+****************************************************************
+***************************************************************/
+
+.white-theme,
+html[data-theme=light] {
+    
+    --ls-icon-color: var(--ct-title-3dots-icon-color);
+    --ls-link-text-color: var(--ct-page-reference-color);
+    --ls-link-text-hover-color: var(--ct-page-reference-color-hover);
+    --ls-link-ref-text-color: var(--ct-page-reference-color);
+    --ls-link-ref-text-hover-color: var(--ct-page-reference-color-hover);
+    --ls-primary-text-color: var(--ct-page-font-color);
+    
+    --ct-background: #fafafa;
+    --ls-primary-background-color: var(--ct-background);
+    
+    --ct-desktop-nav-buttons-color: #a6a6a6;
+    
+    --ls-scrollbar-foreground-color: #a6a6a6;
+    --ls-scrollbar-background-color: #fafafa;
+    
+    --ct-logo-color: #5d5d5d;
+    --ct-repo-name-color: #a6a6a6;
+    --ct-top-right-3dots-icon-color: #a6a6a6;
+    
+    --ct-search-icon-color: #638445;
+    --ct-search-field-background: #f1f1f1;
+    --ct-search-field-background-focus: #f1f1f1;
+    --ct-search-field-text-color: #333;
+    
+    --ct-page-background: #f4f4f4;
+    --ct-page-box-shadow: none;
+    
+    --ct-page-font-color: #393939;
+    --ct-page-title-color: var(--ct-page-font-color);
+    --ct-page-title-text-shadow: none;
+    --ct-heading-color: var(--ct-page-title-color);
+    --ct-heading-text-shadow: var(--ct-page-title-text-shadow);
+    
+    --ct-title-3dots-icon-color: #a6a6a6;
+    
+    --ct-file-path-color: #909d74;
+    --ct-file-path-color-hover: #a0ae83;
+    
+    --ct-page-references-background: #f1f1f1;
+    --ct-page-references-border: none;
+    
+    --ct-page-properties-background: #eee;
+    
+    --ct-hr-border-top: 1px solid #d2d2d2;
+    
+    --ct-guideline-color: #e3e3e3;
+    --ct-guideline-size: 1px;
+    --ct-guideline-style: solid;
+    
+    --ct-block-arrow-color: #b3b3b3;
+    
+    --ct-bullet-size: 6px;
+    --ct-bullet-color: #d5d5d5;
+    --ct-bullet-closed-color: #a4a4a4;
+    
+    --ct-block-properties-background: #eee;
+    
+    --ct-quote-background: linear-gradient(135deg, rgba(225, 232, 224, .4) 0%, transparent 100%);
+    --ct-quote-border-left: 5px solid #909d74;
+    
+    --ct-page-embed-background: #eee;
+    --ct-page-embed-header-color: #638445;
+    
+    --ct-block-embed-background: #eee;
+    
+    --ct-block-references-count-color: #999;
+    --ct-block-references-count-background: #f7f7f7;
+    --ct-block-references-count-color-hover: #5d5d5d;
+    --ct-block-references-count-background-hover: #dfdfdf;
+    
+    --ct-checkbox-border-color: #82a660;
+    --ct-checkbox-border-color-checked: #99b083;
+    --ct-checkbox-background-color: transparent;
+    --ct-checkbox-background-color-checked: #99b083;
+    --ct-checkbox-doing-border-color: #ff6d6d;
+    --ct-checkbox-doing-background-color: var(--ct-checkbox-background-color);
+    --ct-checkbox-marker-switch-display: none;
+    --ct-checkbox-marker-switch-color: var(--ct-checkbox-border-color);
+    --ct-checkbox-doing-marker-switch-color: var(--ct-checkbox-doing-border-color);
+    --ct-task-done-text-color: #8e8e8e;
+    --ct-scheduled-or-deadline-color: var(--ct-file-path-color);
+    --ct-scheduled-or-deadline-color-hover: var(--ct-file-path-color-hover);
+    
+    --ct-external-link-text-decoration: none;
+    --ct-external-link-text-decoration-hover: none;
+    --ct-external-link-background: none;
+    --ct-external-link-background-hover: var(--ct-page-reference-background-hover);
+    --ct-external-link-border-bottom: 1px solid rgba(242, 178, 151, .7);
+    --ct-external-link-border-bottom-hover: 1px solid #f7753e;
+    --ct-external-link-color: #f7753e;
+    --ct-external-link-color-hover: #f7753e;
+    --ct-external-link-background-inside-block-reference: var(--ct-external-link-background);
+    --ct-external-link-background-inside-block-reference-hover: var(--ct-external-link-background-hover);
+    --ct-external-link-border-bottom-inside-block-reference: var(--ct-external-link-border-bottom);
+    --ct-external-link-border-bottom-inside-block-reference-hover: var(--ct-external-link-border-bottom-hover);
+    --ct-external-link-color-inside-block-reference: var(--ct-external-link-color);
+    --ct-external-link-color-inside-block-reference-hover: var(--ct-external-link-color-hover);
+    
+    --ct-page-reference-background: transparent;
+    --ct-page-reference-background-hover: #e7e7e7;
+    --ct-page-reference-brackets-color: #d5d5d5;
+    --ct-page-reference-brackets-color-hover: #ccc;
+    --ct-page-reference-color: #638445;
+    --ct-page-reference-color-hover: #789959;
+    --ct-page-reference-inside-page-references-color: var(--ct-page-reference-color);
+    --ct-page-reference-inside-page-references-color-hover: var(--ct-page-reference-color-hover);
+    --ct-page-reference-background-inside-block-reference: var(--ct-page-reference-background);
+    --ct-page-reference-background-inside-block-reference-hover: var(--ct-page-reference-background-hover);
+    --ct-page-reference-brackets-color-inside-block-reference: var(--ct-page-reference-brackets-color);
+    --ct-page-reference-brackets-color-inside-block-reference-hover: var(--ct-page-reference-brackets-color-hover);
+    --ct-page-reference-color-inside-block-reference: var(--ct-page-reference-color);
+    --ct-page-reference-color-inside-block-reference-hover: var(--ct-page-reference-color-hover);
+    --ct-page-reference-color-inside-highlight: #52622f;
+    
+    --ct-tag-background: none;
+    --ct-tag-background-hover: var(--ct-page-reference-background-hover);
+    --ct-tag-color: var(--ct-page-reference-color);
+    --ct-tag-color-hover: var(--ct-page-reference-color-hover);
+    --ct-tag-background-inside-block-reference: var(--ct-tag-background);
+    --ct-tag-background-inside-block-reference-hover: var(--ct-tag-background-hover);
+    --ct-tag-color-inside-block-reference: var(--ct-tag-color);
+    --ct-tag-color-inside-block-reference-hover: var(--ct-tag-color-hover);
+    
+    --ct-block-reference-border-bottom: 1px solid #789959;
+    --ct-block-reference-border-bottom-hover: 1px solid #5e7746;
+    --ct-block-reference-background: rgba(120, 153, 89, .1);
+    --ct-block-reference-background-hover: rgba(120, 153, 89, .3);
+    --ct-block-reference-color: #333;
+    --ct-block-reference-color-hover: #333;
+    --ct-block-reference-hash-color: #789959;
+    
+    --ct-mark-background: #ccd9b2;
+    --ct-mark-color: #1d1d1d;
+    
+    --ct-italics-color: inherit;
+    
+    --ct-bold-color: #000;
+    
+    --ct-inline-code-background: #789959;
+    --ct-inline-code-color: #fff;
+    
+    --ct-query-background: #eee;
+    --ct-query-header-background: #789959;
+    --ct-query-header-color: #fff;
+    --ct-query-result-page-title: var(--ct-page-reference-color);
+    --ct-query-result-page-title-hover: var(--ct-page-reference-color-hover);
+    
+    --ct-calendar-background: #eee;
+    --ct-calendar-header-background: rgba(230, 230, 230, .8);
+    --ct-calendar-header-color: #575757;
+    --ct-calendar-day-color: var(--ct-page-reference-color);
+    --ct-calendar-day-color-hover: var(--ct-page-reference-color-hover);
+    
+    
+    --ct-sidebar-resizer-background: none;
+    --ct-sidebar-resizer-background-hover: #e1e1e1;
+    
+    --ct-sidebar-background: none;
+    --ct-sidebar-tabs-color: #9c9c9c;
+    --ct-sidebar-close-arrow-color: #9c9c9c;
+    --ct-sidebar-font-color: var(--ct-page-font-color);
+    --ct-sidebar-item-background: #f4f4f4;
+    --ct-sidebar-item-box-shadow: none;
+    --ct-sidebar-item-title-color: #575757;
+    --ct-sidebar-item-title-text-shadow: var(--ct-page-title-text-shadow);
+    --ct-sidebar-item-close-button-color: #9c9c9c;
+    --ct-sidebar-page-references-background: var(--ct-page-references-background);
+    --ct-sidebar-page-properties-background: var(--ct-page-properties-background);
+    --ct-sidebar-block-properties-background: var(--ct-block-properties-background);
+    --ct-sidebar-quote-background: var(--ct-quote-background);
+    --ct-sidebar-quote-border-left: var(--ct-quote-border-left);
+    --ct-sidebar-page-embed-background: var(--ct-page-embed-background);
+    --ct-sidebar-block-embed-background: var(--ct-block-embed-background);
+    
+    --ct-recent-pages-color: var(--ct-page-reference-color);
+    --ct-help-pages-color: var(--ct-page-reference-color);
+    
+    --ct-caret-color: var(--ct-page-reference-color);
+    --ct-text-selection-color: #cedbcc;
+    --ct-block-selected-background: #d5dedb;
+    --ct-block-selected-border-bottom-color: var(--ct-background);
+    --ct-menu-dropdown-background: #fcfcfc;
+    --ct-menu-dropdown-color: #333;
+    --ct-menu-dropdown-hover-color: #e6e6e6;
+    --ct-menu-focused-by-keyboard: #ccc;
+    
+    --ct-journal-border-height: 1px;
+    --ct-journal-border-style: solid;
+    --ct-journal-border-color: #d2d2d2;
+    
+    --ct-slides-font-color: var(--ct-sidebar-font-color);
+    --ct-slides-background: var(--ct-sidebar-item-background);
+    
+    --ct-code-block-background: #f1f1f1;
+    --ct-code-block-color: #595959;
+    --ct-code-block-line-numbers-background: #eaeaea;
+    --ct-code-block-line-numbers-shadow: none;
+    --ct-code-block-lang-color: #6f6f6f;
+    --ct-code-block-lang-background: #eaeaea;
+    --ct-code-block-variable-color: #738663;
+    --ct-code-block-def-color: #f7753e;
+    
+    --ct-table-head-bg: none;
+    --ct-table-head-color: var(--ct-page-font-color);
+    --ct-table-row-odd-bg: #f1f1f1;
+    --ct-table-row-odd-color: var(--ct-page-font-color);
+    --ct-table-row-even-bg: #e8e8e8;
+    --ct-table-row-even-color: var(--ct-page-font-color);
+    --ct-table-head-border-bottom: 2px solid #e8e8e8;
+    
+    --ct-settings-overlay-background: #d5d5d5;
+    --ct-settings-background: #fdfdfd;
+    --ct-settings-switcher-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-background: var(--ls-scrollbar-foreground-color);
+    --ct-settings-select-color: #4f4f4f;
+    --ct-settings-input-border: 1px solid var(--ls-scrollbar-foreground-color);
+    --ct-settings-input-color: #4f4f4f;
+    --ct-settings-hr-color: var(--ct-journal-border-color);
+    
+    --ct-rename-overlay-background: var(--ct-settings-overlay-background);
+    --ct-rename-background: var(--ct-settings-background);
+    --ct-rename-header-color: #4f4f4f;
+    --ct-rename-input-color: #4f4f4f;
+    --ct-rename-cancel-background: #f9f9f9;
+    --ct-rename-cancel-color: #515151;
+    
+    --ct-mobile-head-background: #e6e6e6;
+    --ct-mobile-head-menu-icon-color: var(--ct-page-font-color);
+    --ct-mobile-left-sidebar-background: #f1f1f1;
+    --ct-mobile-sidebar-repo-name-color: var(--ct-page-reference-color);
+    --ct-mobile-close-sidebar-button-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-color: var(--ct-page-reference-color);
+    --ct-mobile-menu-separator-background: var(--ct-settings-hr-color);
+    --ct-mobile-editor-toolbar-background: #e6e6e6;
+    --ct-mobile-editor-toolbar-color: var(--ct-page-font-color);
+}
+
+
+
+/***************************************************************
+**************************** MISC ******************************
+***************************************************************/
+
+
+/* daily note as card */
+
+.white-theme #journals {
+    margin-bottom: 0;
+}
+.white-theme .cp__sidebar-main-content {
+    margin-bottom: 600px;
+}
+.white-theme #journals .journal-item:first-child {
+    min-height: 0;
+}
+.white-theme #journals .journal-item {
+    margin-bottom: 0;
 }
