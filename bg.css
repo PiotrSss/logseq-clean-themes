@@ -97,7 +97,9 @@ html[data-theme="dark"] {
     background: none;
 }
 
-
+.cp__header {
+    background: none;
+}
 .cp__header-logo svg {
     fill: var(--ct-logo-color);
     filter: none
