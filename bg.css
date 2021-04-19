@@ -733,6 +733,10 @@ b, strong {
 ************************ RIGHT SIDEBAR *************************
 ***************************************************************/
 
+.cp__right-sidebar-topbar {
+    background: none;
+}
+
 .cp__right-sidebar-inner .resizer {
     background: var(--ct-sidebar-resizer-background);
     transition: .3s;
