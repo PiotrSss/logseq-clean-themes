@@ -167,7 +167,8 @@ a.chosen {
 ***************************************************************/
 
 .cp__sidebar-main-content {
-    padding: 5.3rem 1.5rem;
+    /* padding: 5.3rem 1.5rem; */
+    padding: 1.5rem;
 }
 
 .cp__sidebar-main-content>div {
@@ -243,7 +244,7 @@ h1.title {
     font-style: var(--ct-page-title-font-style);
     color: var(--ct-page-title-color);
     line-height: var(--ct-page-title-line-height);
-    margin-top: 30px;
+    margin-top: .7rem;
     text-shadow: var(--ct-page-title-text-shadow, none);
 }
 
